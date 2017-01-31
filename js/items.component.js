@@ -1,24 +1,24 @@
 (function() {
     "use strict";
-/*
+
     angular.module("MenuApp")
-    //.controller("ItemsController", ItemsController)
+    .controller("ItemsController", ItemsController)
     .component("items", {
         templateUrl: "items.component.html",
         bindings: {
             list: "<"
         }
     });
-    
-    ItemsController.$inject = ["$element", "MenuDataService"];
-    function ItemsController($element, MenuDataService) {
+
+    ItemsController.$inject = ["MenuDataService", "$state"];
+    function ItemsController(MenuDataService, $state) {
         var $ctrl = this;
-        
-        var promise = MenuDataService.getItemsForCategory(category);
+        var promise = MenuDataService.getItemsForCategory($state.params.category);
         promise.then(function(result) {
-            $ctrl.list = result.data;
+          console.log(result.data);
+            $ctrl.cat = $state.params.category;
+            $ctrl.list = result.data.menu_items;
         });
-        
-    };*/
-    
+    };
+
 })();
