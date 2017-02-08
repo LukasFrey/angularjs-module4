@@ -18,12 +18,25 @@
         .state("categories", {
             url: "/categories",
             templateUrl: "categories.state.html",
-            controller: "CategoriesController as $ctrl"
+            controller: "CategoriesController as $ctrl",
+            resolve: {
+                entries: ["MenuDataService", function(MenuDataService) {
+                    return MenuDataService.getAllCategories();
+                }]
+            }
         })
         .state("items", {
             url: "/items/{category}",
             templateUrl: "items.state.html",
-            controller: "ItemsController as $ctrl"
+            controller: "ItemsController as $ctrl",
+            resolve: {
+                entries: ["MenuDataService", "$stateParams", function(MenuDataService, $stateParams) {
+                    return MenuDataService.getItemsForCategory($stateParams.category);
+                }], 
+                cat: ["$stateParams", function($stateParams) {
+                    return $stateParams.category;
+                }]
+            }
         });
     };
 })();

@@ -11,17 +11,18 @@
         var service = this;
         
         service.getAllCategories = function() {
-            return $http({
-                url: CategoriesUrl
+            return $http.get(CategoriesUrl).then(function(response) {
+                return response.data;
             });
         };
         
         service.getItemsForCategory = function(categoryShortName) {
-            return $http({
-                url: MenuItemsUrl,
+            return $http.get(MenuItemsUrl, {
                 params: {
                     category: categoryShortName
                 }
+            }).then(function(response) {
+                return response.data.menu_items;
             });
         };
     };
